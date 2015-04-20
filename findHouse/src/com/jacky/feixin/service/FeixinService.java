@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.CoreConnectionPNames;
+import org.apache.http.params.CoreProtocolPNames;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -15,6 +17,15 @@ import com.jacky.util.HttpClientUtils;
 
 public class FeixinService {
 	private static HttpClient httpClient = new DefaultHttpClient();
+	static{
+		//请求超时
+		httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT, 60000); 
+		//读取超时
+		httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT, 60000);
+		httpClient.getParams().setParameter(CoreProtocolPNames.USER_AGENT, "Mozilla/5.0 (Windows NT 6.1; rv:8.0.1) Gecko/20100101 Firefox/8.0.1");
+		
+	}
+	
 	// 是否登陆的状态 默认是未登陆
 	private static boolean loginFlag = false;
 	// 我的飞信ID

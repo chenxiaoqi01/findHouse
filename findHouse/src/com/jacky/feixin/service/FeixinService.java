@@ -40,6 +40,21 @@ public class FeixinService {
 				//飞信登陆成功
 				System.out.println("已经成功登陆飞信，自己的飞信ID是："+myFeixinId);
 				loginFlag = true;
+				// 登录之后隔一分钟访问一下飞信服务器，防止session超时
+				Runnable t = new Runnable(){
+					@Override
+					public void run() {
+						while(true){
+							try {
+								System.out.println("心跳："+xintiao());
+								Thread.sleep(60000);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				};
+				new Thread(t).start();
 			}else{
 				System.out.println("登陆失败"+(String)map.get("tip"));
 			}
@@ -111,4 +126,9 @@ public class FeixinService {
 		return content;
 	}
 	
+	// 心跳
+	private static String xintiao(){
+		// 号码随便填，不为空就行 主要是为了让session不要过期
+		return findFriend("15914489532");
+	}
 }

@@ -8,3 +8,8 @@
 
 # 注意事项
 飞信短信功能要求必须是移动号码，并且已经开通了飞信功能。
+
+# 只需要修改一个配置文件即可运行
+src下的config.prperties
+
+# main方法入口在 com.jacky.Thread.Main.java中

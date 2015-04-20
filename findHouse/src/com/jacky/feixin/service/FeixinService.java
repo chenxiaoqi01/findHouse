@@ -46,8 +46,8 @@ public class FeixinService {
 					public void run() {
 						while(true){
 							try {
-								System.out.println("ÐÄÌø£º"+xintiao());
 								Thread.sleep(60000);
+								System.out.println("ÐÄÌø£º"+xintiao());
 							} catch (Exception e) {
 								e.printStackTrace();
 							}

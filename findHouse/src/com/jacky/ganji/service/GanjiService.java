@@ -8,10 +8,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreProtocolPNames;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.jacky.ganji.bean.ItemBean;
-import com.jacky.ganji.bean.ItemDetailBean;
 import com.jacky.util.HttpClientUtils;
 import com.jacky.util.PropertiesUtil;
 
@@ -42,13 +42,16 @@ public class GanjiService {
 			
 			Elements elements = doc.getElementsByClass("list-style1");
 			//System.out.println(elements.text());
-			Elements childs = elements.get(0).children();
-			
-			for(int i=0; i<childs.size(); i++){
-				ItemBean b = new ItemBean();
-				b.setPuid(childs.get(i).attr("id"));
-				b.setMsg(childs.get(0).text());
-				list.add(b);
+			if(elements.size()>0){
+				for(Element element: elements){
+					Elements childs = element.children();
+					for(int i=0; i<childs.size(); i++){
+						ItemBean b = new ItemBean();
+						b.setPuid(childs.get(i).attr("id"));
+						b.setMsg(childs.get(0).text());
+						list.add(b);
+					}
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
